@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="contactApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-controller="ContactController" class="bg-light">
+
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Contact Us</h2>
+
+    <form name="contactForm" novalidate class="p-4 shadow rounded bg-white">
+      
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" 
+               class="form-control" 
+               id="name" 
+               name="name" 
+               ng-model="user.name" 
+               ng-required="true"
+               ng-minlength="3">
+        <small class="text-danger" ng-show="contactForm.name.$touched && contactForm.name.$error.required">Name is required.</small>
+        <small class="text-danger" ng-show="contactForm.name.$touched && contactForm.name.$error.minlength">Name must be at least 3 characters.</small>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" 
+               class="form-control" 
+               id="email" 
+               name="email" 
+               ng-model="user.email" 
+               ng-required="true" 
+               ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+        <small class="text-danger" ng-show="contactForm.email.$touched && contactForm.email.$error.required">Email is required.</small>
+        <small class="text-danger" ng-show="contactForm.email.$touched && contactForm.email.$error.pattern">Enter a valid email.</small>
+      </div>
+
+      <!-- Message -->
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea class="form-control" 
+                  id="message" 
+                  name="message" 
+                  rows="5" 
+                  ng-model="user.message" 
+                  ng-required="true" 
+                  ng-minlength="10"></textarea>
+        <small class="text-danger" ng-show="contactForm.message.$touched && contactForm.message.$error.required">Message is required.</small>
+        <small class="text-danger" ng-show="contactForm.message.$touched && contactForm.message.$error.minlength">Message must be at least 10 characters.</small>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" 
+              class="btn btn-primary" 
+              ng-disabled="!contactForm.$valid"
+              ng-click="submitForm()">Submit</button>
+
+    </form>
+  </div>
+
+</body>
+</html>

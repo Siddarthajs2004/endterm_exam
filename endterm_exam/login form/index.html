@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="loginApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap & AngularJS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body ng-controller="LoginController">
+
+  <div class="container">
+    <div class="form-container">
+      <h3 class="text-center text-primary mb-4">Login Form</h3>
+
+      <form name="loginForm" novalidate ng-submit="login()" class="needs-validation">
+
+        <!-- Username -->
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text"
+                 class="form-control"
+                 id="username"
+                 name="username"
+                 ng-model="user.username"
+                 ng-required="true"
+                 ng-class="{'is-invalid': loginForm.username.$touched && loginForm.username.$invalid}">
+          <small class="text-danger" ng-show="loginForm.username.$touched && loginForm.username.$error.required">
+            Username is required.
+          </small>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password"
+                 class="form-control"
+                 id="password"
+                 name="password"
+                 ng-model="user.password"
+                 ng-required="true"
+                 ng-minlength="8"
+                 ng-class="{'is-invalid': loginForm.password.$touched && loginForm.password.$invalid}">
+          <small class="text-danger" ng-show="loginForm.password.$touched && loginForm.password.$error.required">
+            Password is required.
+          </small>
+          <small class="text-danger" ng-show="loginForm.password.$touched && loginForm.password.$error.minlength">
+            Password must be at least 8 characters.
+          </small>
+        </div>
+
+        <!-- Email (optional) -->
+        <div class="form-group">
+          <label for="email">Email (optional)</label>
+          <input type="email"
+                 class="form-control"
+                 id="email"
+                 name="email"
+                 ng-model="user.email"
+                 ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                 ng-class="{'is-invalid': loginForm.email.$touched && loginForm.email.$error.pattern}">
+          <small class="text-danger" ng-show="loginForm.email.$touched && loginForm.email.$error.pattern">
+            Enter a valid email address.
+          </small>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+                class="btn btn-primary btn-block"
+                ng-disabled="!loginForm.$valid">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+
+</body>
+</html>

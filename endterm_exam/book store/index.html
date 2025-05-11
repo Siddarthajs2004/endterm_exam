@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="bookStoreApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Store</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="BookController">
+
+  <!-- Header -->
+  <header class="bg-success text-white text-center p-4">
+    <h1>Online Book Store</h1>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="container my-4">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" ng-model="searchTitle" placeholder="Search by title">
+      </div>
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" ng-model="searchAuthor" placeholder="Search by author">
+      </div>
+    </div>
+  </div>
+
+  <!-- Book Cards -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4" ng-repeat="book in books | filter:{title: searchTitle, author: searchAuthor}">
+        <div class="card h-100">
+          <img class="card-img-top" ng-src="{{book.image}}" alt="{{book.title}}" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">{{book.title}}</h5>
+            <p class="card-text">
+              <strong>Author:</strong> {{book.author}}<br>
+              <strong>Price:</strong> ₹{{book.price}}
+            </p>
+            <button class="btn btn-primary btn-block">Buy Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2025 Book Store</p>
+  </footer>
+
+</body>
+</html>

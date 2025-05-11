@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="inventoryApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Inventory Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap & AngularJS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body ng-controller="InventoryController">
+
+  <!-- Header -->
+  <header class="bg-primary text-white text-center py-4">
+    <h1>Product Inventory Dashboard</h1>
+  </header>
+
+  <!-- Main Section -->
+  <main class="container my-4">
+
+    <!-- Search and Sorting Controls -->
+    <div class="row mb-3">
+      <div class="col-md-6 mb-2">
+        <input type="text" class="form-control" placeholder="Search by product name..." ng-model="searchText">
+      </div>
+      <div class="col-md-6 text-right">
+        <button class="btn btn-outline-secondary mr-2" ng-click="sortBy('price')">Sort by Price</button>
+        <button class="btn btn-outline-secondary" ng-click="sortBy('category')">Sort by Category</button>
+      </div>
+    </div>
+
+    <!-- Product Cards -->
+    <div class="row">
+      <div class="col-md-4 mb-4" ng-repeat="product in products | filter:{name: searchText} | orderBy:sortField">
+        <div class="card h-100" ng-class="{'low-stock': product.quantity < 5}">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">
+              <strong>Category:</strong> {{ product.category }}<br>
+              <strong>Price:</strong> ₹{{ product.price }}<br>
+              <strong>Stock:</strong> {{ product.quantity }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2025 Inventory Inc.</p>
+  </footer>
+
+</body>
+</html>

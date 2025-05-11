@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="feedbackApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body ng-controller="FeedbackController" class="bg-light">
+
+  <div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">Website Feedback Form</h2>
+
+    <form name="feedbackForm" novalidate class="p-4 shadow bg-white rounded">
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text"
+               class="form-control"
+               id="name"
+               name="name"
+               ng-model="feedback.name"
+               ng-required="true"
+               ng-minlength="2">
+        <small class="text-danger" ng-show="feedbackForm.name.$touched && feedbackForm.name.$error.required">Name is required.</small>
+        <small class="text-danger" ng-show="feedbackForm.name.$touched && feedbackForm.name.$error.minlength">Minimum 2 characters required.</small>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email"
+               class="form-control"
+               id="email"
+               name="email"
+               ng-model="feedback.email"
+               ng-required="true"
+               ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+        <small class="text-danger" ng-show="feedbackForm.email.$touched && feedbackForm.email.$error.required">Email is required.</small>
+        <small class="text-danger" ng-show="feedbackForm.email.$touched && feedbackForm.email.$error.pattern">Enter a valid email.</small>
+      </div>
+
+      <!-- Rating -->
+      <div class="form-group">
+        <label for="rating">Rating</label>
+        <select class="form-control"
+                id="rating"
+                name="rating"
+                ng-model="feedback.rating"
+                ng-required="true">
+          <option value="" disabled selected>Select a rating</option>
+          <option>Excellent</option>
+          <option>Good</option>
+          <option>Average</option>
+          <option>Poor</option>
+        </select>
+        <small class="text-danger" ng-show="feedbackForm.rating.$touched && feedbackForm.rating.$error.required">Please select a rating.</small>
+      </div>
+
+      <!-- Comments -->
+      <div class="form-group">
+        <label for="comments">Comments</label>
+        <textarea class="form-control"
+                  id="comments"
+                  name="comments"
+                  ng-model="feedback.comments"
+                  rows="4"
+                  ng-required="true"
+                  ng-minlength="10"></textarea>
+        <small class="text-danger" ng-show="feedbackForm.comments.$touched && feedbackForm.comments.$error.required">Comments are required.</small>
+        <small class="text-danger" ng-show="feedbackForm.comments.$touched && feedbackForm.comments.$error.minlength">At least 10 characters required.</small>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit"
+              class="btn btn-success btn-block"
+              ng-disabled="!feedbackForm.$valid"
+              ng-click="submitFeedback()">Submit Feedback</button>
+
+    </form>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="employeeApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap + AngularJS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-controller="EmployeeController">
+
+  <!-- Header -->
+  <header class="bg-primary text-white text-center py-3">
+    <h2>Employee Directory</h2>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container my-4">
+
+    <!-- Filter and Sort -->
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Search by name..." ng-model="searchText">
+      </div>
+      <div class="col-md-6 text-right">
+        <button class="btn btn-outline-secondary" ng-click="sortBy('department')">Sort by Department</button>
+      </div>
+    </div>
+
+    <!-- Employee Cards -->
+    <div class="row">
+      <div class="col-md-4 mb-4" ng-repeat="emp in employees | filter:{name: searchText} | orderBy:sortField">
+        <div class="card h-100" ng-class="{'manager': emp.role === 'Manager'}">
+          <div class="card-body">
+            <h5 class="card-title">{{ emp.name }}</h5>
+            <p class="card-text">
+              <strong>Department:</strong> {{ emp.department }}<br>
+              <strong>Role:</strong> {{ emp.role }}<br>
+              <strong>Contact:</strong> {{ emp.contact }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-2">
+    <p>&copy; 2025 Company Name</p>
+  </footer>
+
+</body>
+</html>

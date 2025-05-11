@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="studentApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Directory</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="StudentController">
+
+  <!-- Header -->
+  <header class="bg-primary text-white text-center p-4">
+    <h1>Student Directory</h1>
+  </header>
+
+  <!-- Search Section -->
+  <div class="container my-4">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" ng-model="searchName" placeholder="Search by name">
+      </div>
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" ng-model="searchDept" placeholder="Search by department">
+      </div>
+    </div>
+  </div>
+
+  <!-- Student Cards Section -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4" ng-repeat="student in students | filter:{name: searchName, department: searchDept}">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{student.name}}</h5>
+            <p class="card-text">
+              <strong>Department:</strong> {{student.department}}<br>
+              <strong>Email:</strong> {{student.email}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2025 Student Directory</p>
+  </footer>
+
+</body>
+</html>

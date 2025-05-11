@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="registrationApp">
+<head>
+  <meta charset="UTF-8">
+  <title>User Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap and AngularJS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body ng-controller="RegistrationController">
+
+  <div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">User Registration Form</h2>
+
+    <form name="registrationForm" novalidate class="p-4 shadow bg-white rounded">
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text"
+               class="form-control"
+               id="name"
+               name="name"
+               ng-model="user.name"
+               ng-required="true">
+        <small class="text-danger" ng-show="registrationForm.name.$touched && registrationForm.name.$error.required">
+          Name is required.
+        </small>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email"
+               class="form-control"
+               id="email"
+               name="email"
+               ng-model="user.email"
+               ng-required="true"
+               ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+        <small class="text-danger" ng-show="registrationForm.email.$touched && registrationForm.email.$error.required">
+          Email is required.
+        </small>
+        <small class="text-danger" ng-show="registrationForm.email.$touched && registrationForm.email.$error.pattern">
+          Enter a valid email address.
+        </small>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password"
+               class="form-control"
+               id="password"
+               name="password"
+               ng-model="user.password"
+               ng-required="true"
+               ng-minlength="6">
+        <small class="text-danger" ng-show="registrationForm.password.$touched && registrationForm.password.$error.required">
+          Password is required.
+        </small>
+        <small class="text-danger" ng-show="registrationForm.password.$touched && registrationForm.password.$error.minlength">
+          Password must be at least 6 characters.
+        </small>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit"
+              class="btn btn-primary btn-block"
+              ng-disabled="!registrationForm.$valid"
+              ng-click="registerUser()">Register</button>
+
+    </form>
+  </div>
+
+</body>
+</html>
